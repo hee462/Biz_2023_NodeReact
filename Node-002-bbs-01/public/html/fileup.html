@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>나의 홈페이지</title>
+
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      div.input,
+      div.button,
+      div.image {
+        width: 80%;
+        margin: 10px auto;
+      }
+      input {
+        display: none;
+      }
+      label {
+        width: 100%;
+        background-color: #ddd;
+        display: block;
+        text-align: center;
+      }
+      div.thumb {
+        display: flex;
+        border: 1px solid blue;
+        flex-wrap: wrap;
+      }
+      div.input {
+        display: flex;
+        flex-direction: column;
+      }
+      div.input input {
+        display: inline-block;
+      }
+    </style>
+  </head>
+  <body>
+    <section class="main">
+      <div class="bbs input">
+        <input name="b_nickname" placeholder="작성자" />
+        <input name="b_title" placeholder="제목" />
+        <input name="b_content" placeholder="내용" />
+      </div>
+      <div class="image main">
+        <label for="main_image"> 대표이미지</label>
+        <input type="file" accept="image/*" id="main_image" />
+        <div class="thumb_main"></div>
+      </div>
+      <div class="image gallery">
+        <label for="gallery_image"> 갤러리 </label>
+        <input
+          type="file"
+          accept="image/*"
+          id="gallery_image"
+          multiple="multiple"
+        />
+        <div class="thumb_gallery"></div>
+      </div>
+      <div class="button">
+        <button id="bbs_input">저장</button>
+      </div>
+      <div class="view"></div>
+    </section>
+    <script>
+      /*
+        html 에서 입력된 내용을 
+        "파일"과 함께 fetch 를 사용하여 서버로 업로드 하기
+        파일이 없는 경우 form의 input에 입력된 데이터를 JSON으로 변경하여 서버로 보내면된다
+        하지만 파일이 있는 경우 단순히 JSON으로 데이터를 보낼수 없다
+
+        그래서 JS에서는 FormData 라는 JS 객체를 준비해 두고
+         이 객체를 통하여 서버로 데이터를 전송하도록 하고 있다
+        1. JS FormData 객체를 생성
+        2. FormData에 파일정보, input 정보를 append 하여 서버로 전송
+         
+        */
+      const btn_input = document.querySelector("#bbs_input");
+      const input_image = document.querySelector("#main_image");
+      const input_images = document.querySelector("#gallery_image");
+      const serverURL = "http://localhost:8080/file/insert";
+      const upload = async () => {
+        // JS에서 fetch로 파일을 업로드 할때 사용할 payload 객체
+        const formData = new FormData();
+        // 업로드할 싱글이미지를 formData에  append->데이터 하나만 가져오기
+        formData.append("b_file", input_image.files[0]);
+        // upload할 멀티이미지를 formData에 append
+        for (let file of input_images.files) {
+          formData.append("b_files", file);
+        }
+        // input box에 입력된 데이터를 append
+        const b_nickname = document.querySelector("input[name='b_nickname']");
+        const b_title = document.querySelector("input[name='b_title']");
+        const b_content = document.querySelector("input[name='b_content']");
+        formData.append("b_nickname", b_nickname.value);
+        formData.append("b_title", b_title.value);
+        formData.append("b_content", b_content.value);
+
+        const fetchData = {
+          method: "POST",
+          body: formData,
+        };
+        const response = await fetch(serverURL, fetchData);
+        const result = await response.text();
+
+        const div_view = document.querySelector("div.view");
+        div_view.innerHTML = result;
+      }; // upload end
+      btn_input?.addEventListener("click", upload);
+    </script>
+    <script>
+      const image = document.querySelector("#main_image");
+      const thumb_main = document.querySelector("div.thumb_main");
+      const gallery = document.querySelector("#gallery_image");
+      const thumb_gallery = document.querySelector("div.thumb_gallery");
+
+      gallery?.addEventListener("change", (e) => {
+        const files = e.target.files;
+        // html tag들을 forEach 사용할때는 for(of)를 사용한다
+        thumb_gallery.innerHTML = "";
+        for (let file of files) {
+          const img = document.createElement("img");
+          img.src = URL.createObjectURL(file);
+          img.width = 100;
+          img.height = 100;
+          thumb_gallery.appendChild(img);
+        }
+      });
+
+      image?.addEventListener("change", (e) => {
+        const file = e.target.files[0];
+        console.dir(file);
+        console.log(file);
+        const img = document.createElement("img");
+        img.src = URL.createObjectURL(file);
+        img.width = 100;
+        img.height = 100;
+        thumb_main.innerHTML = "";
+        thumb_main.appendChild(img);
+      });
+    </script>
+  </body>
+</html>
