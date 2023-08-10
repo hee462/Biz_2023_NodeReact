@@ -3,8 +3,7 @@ export const BBsDto = {
   b_title: "",
   b_content: "",
   b_nickname: "",
-  b_password: "",
-  b_ccode: "",
+  b_star: "",
   b_date: "",
   viewcount: 0,
 

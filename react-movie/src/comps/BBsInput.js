@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
 import { BBsDto } from "../data/BBsDto";
+import "../css/Input.css";
 const BBsInput = () => {
   const [bbs, setBbs] = useState(BBsDto);
   const [image, setImage] = useState();
@@ -60,12 +61,12 @@ const BBsInput = () => {
         <input
           name="b_star"
           placeholder="평점"
-          value={bbs.b_content}
+          value={bbs.b_star}
           onChange={inputChangeHandler}
         />
       </div>
       <div className="image main">
-        <label htmlFor="main_image"> 대표이미지</label>
+        <label htmlFor="main_image"> 포스터</label>
         <input
           id="main_image"
           type="file"
@@ -75,11 +76,11 @@ const BBsInput = () => {
           ref={imageRef}
         />
         <div className="thumb_main">
-          <img src={image ? image : ""} width="100px" />
+          <img src={image ? image : ""} width="300px" />
         </div>
       </div>
       <div className="image gallery">
-        <label htmlFor="gallery_image"> 갤러리 </label>
+        <label htmlFor="gallery_image"> 등장인물</label>
         <input
           id="gallery_image"
           type="file"
