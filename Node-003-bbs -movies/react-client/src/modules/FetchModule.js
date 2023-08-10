@@ -25,7 +25,6 @@ export const hello = async () => {
   const res = await fetch(URL.HELLO);
   const json = await res.json();
   console.log(json);
-  //   setTitle(json.title);
   return json.title;
 };
 export const getBbsList = async () => {

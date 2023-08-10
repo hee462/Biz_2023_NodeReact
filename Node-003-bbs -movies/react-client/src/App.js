@@ -18,7 +18,8 @@ function App() {
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>{title ? title : "반갑습니다 React BBS Project 입니다"}</p>
+        {/* <p>{title ? title : "React_Movie"}</p> */}
+        <h1 class="fifth">{title ? title : "React_Movie"}</h1>
       </header>
       <BBsContextProvder>
         <BBsMain />

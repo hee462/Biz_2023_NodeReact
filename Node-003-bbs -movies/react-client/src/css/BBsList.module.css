@@ -1,0 +1,26 @@
+.main {
+  width: 80%;
+  margin: 10px auto;
+  border-collapse: collapse;
+}
+.main th {
+  background-color: #c1ecf3;
+  padding: 0.5rem;
+
+  /* border: 1px solid #ddd; */
+}
+.main tbody tr:nth-of-type(2n) {
+  background-color: #eee;
+}
+.main tbody tr:hover {
+  background-color: #ddd;
+}
+.main tbody tr {
+  font-size: 15px;
+}
+.main td {
+  text-align: center;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  cursor: pointer;
+}

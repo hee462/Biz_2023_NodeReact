@@ -1,23 +1,22 @@
-import { Outlet } from "react-router-dom";
-// import BbsInput from "./BbsInput";
-// import "../css/BBs.css";
+import BbsList from "./BbsList";
+import BbsInput from "./BbsInput";
 
 const BBsMain = () => {
-  /**
-   * App
-   *  --BBsMain : /bbs
-   *    --BBsList : /bbs/""
-   *    --BBsInput : /bbs/insert
-   * 위와 같이 계층적(hierarchy)의 화면 layout을 구현할때 만약
-   * /bbs/insert 로 메뉴 링크가 요청되면
-   * BBsMain 에 BBsinput 포함하여 하나의 화면으로 구현하게 된다
-   * 이때 BBsInput 컴포넌트를 포함할 자리를 BBsMain에 만들어 두어야 한다
-   * <Outlet /> 컴포넌트 키워드를 정해 놓으면 그 자리에 BBsInput 컴포넌트가
-   * 끼워넣져 하나의 화면을 구현한다
-   */
+  // deps(useEffect()함수의 두번째 파라메타)가 빈배열([])이면
+  // 화면이 최초 Rendering 된 직후->(mount라고 칭함) 한번 실행되는 Event 함수
+  // 컴포넌트 마운트 :화면이 최초 Rendering 이 (모두) 된 직후
+  // useEffect(() => {
+  //   const fetchBBList = async () => {
+  //     const result = await getBbsList();
+  //     setBbsList(result);
+  //   };
+  //   fetchBBList();
+  // }, []);
+
   return (
     <>
-      <Outlet />
+      <BbsInput />
+      <BbsList />
     </>
   );
 };

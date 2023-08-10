@@ -1,0 +1,33 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+div.input,
+div.button,
+div.image {
+  width: 90%;
+  margin: 10px auto;
+}
+input {
+  display: none;
+}
+label {
+  width: 100%;
+  background-color: #8dc4e4;
+  display: block;
+  text-align: center;
+}
+div.thumb {
+  display: flex;
+  /* border: 1px solid blue; */
+  flex-wrap: wrap;
+  /* width: 50px; */
+}
+div.input {
+  display: flex;
+  flex-direction: column;
+}
+div.input input {
+  display: inline-block;
+}
