@@ -24,3 +24,27 @@
   border: 1px solid #ddd;
   cursor: pointer;
 }
+.main td img {
+  /* margin-left: 20px; */
+  border-radius: 0.5rem;
+  transition: all 0.5s ease-in-out;
+}
+
+.main td img:hover {
+  cursor: pointer;
+  transform: scale(2);
+}
+
+.main td a {
+  text-decoration: none;
+  color: red;
+  /* background-color: #c1ecf3; */
+}
+.main td a:hover {
+  cursor: pointer;
+  background-color: #eee;
+  font-size: 18px;
+}
+.main td#id {
+  line-height: 180%;
+}

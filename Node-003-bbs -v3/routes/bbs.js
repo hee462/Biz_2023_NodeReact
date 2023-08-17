@@ -24,10 +24,18 @@ const Hello = {
   title: "나는 NodeJS  ",
   message: "Hello NodeJS BBS world",
 };
-
+/**
+ * window에서 한글깨짐을 바꿔줌
+ *
+ */
+const encKor = (str) => {
+  console.log(str);
+  return Buffer.from(str, "latin1").toString("utf-8");
+};
 // 파일을 전송하기 위한 설정값 만들기
 const storageOption = {
   filename: (req, file, cb) => {
+    file.originalname = encKor(file.originalname);
     const originalName = file.originalname;
     const filePrix = `${Date.now()} - ${Math.round(Math.random() * 100000)}`;
     const fileName = `${filePrix} - ${originalName}`;
@@ -75,7 +83,25 @@ router.post("/insert", uploadMiddleWare.array("b_images"), async (req, res) => {
   res.send("OK");
 });
 router.get("/list", async (req, res) => {
-  const bbsList = await BBS.findAll();
+  // include
+  // sequelize에서 1:N 관계가 설정 되어 있을때 자동으로 JOIN 하는 코드
+  const bbsList = await BBS.findAll({
+    include: { model: FILES, as: "F_FILES" },
+  });
+  return res.json(bbsList);
+});
+// localhost:3000/bbs/detail/3 으로 요청되면 3이란값이 seq 변수에 담기게 된다
+// ?seq =값 =>queryString 방식
+//            res.query.seq 로 값 받기
+// /:seq    => PathVarriable 방식
+//            req.params.seq
+// form으로 전송한 데이터는 req.boby에 담겨서 통째로
+router.get("/detail/:seq", async (req, res) => {
+  const seq = req.params.seq;
+  const bbsList = await BBS.findOne({
+    where: { b_seq: seq },
+    include: { model: FILES, as: "F_FILES" },
+  });
   return res.json(bbsList);
 });
 export default router;

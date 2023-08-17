@@ -24,14 +24,28 @@ const BbsInput = () => {
     const imgSrc = await filePreview(e.target.files[0]);
     setimage(imgSrc);
   };
-
+  const imageReset = () => {
+    setimage([""]);
+  };
   const inputChangeHandler = (e) => {
     const { name, value } = e.target;
     setBbs({ ...bbs, [name]: value });
   };
 
+  const onReset = () => {
+    setBbs({
+      b_date: "",
+      b_title: "",
+      b_content: "",
+      b_ccode: "",
+    });
+    imageReset();
+  };
+
   const insertButtonClickHandler = async () => {
     bbsInsertCB();
+    onReset();
+    imageReset();
   };
 
   return (
@@ -59,7 +73,7 @@ const BbsInput = () => {
           <lable></lable>
           <input
             name="b_title"
-            placeholder="제목"
+            placeholder="영화이름"
             value={bbs.b_title}
             onChange={inputChangeHandler}
           />
@@ -68,7 +82,7 @@ const BbsInput = () => {
           <lable></lable>
           <input
             name="b_content"
-            placeholder="내용"
+            placeholder="줄거리"
             value={bbs.b_content}
             onChange={inputChangeHandler}
           />
@@ -86,7 +100,7 @@ const BbsInput = () => {
 
       <div className={css.image_box}>
         <div>
-          <label htmlFor="main_image"> main_image</label>
+          <label htmlFor="main_image"> 이미지 추가</label>
           <input
             id="main_image"
             type="file"
@@ -112,7 +126,7 @@ const BbsInput = () => {
         </div>
         <div className={css.button}>
           <button onClick={insertButtonClickHandler}>저장</button>
-          <button>수정</button>
+          <button onClick={onReset}>다시쓰기</button>
         </div>
       </div>
       <div className="view"></div>

@@ -4,8 +4,8 @@ import BbsInput from "./BbsInput";
 const BBsMain = () => {
   return (
     <>
-      <BbsInput />
       <BbsList />
+      <BbsInput />
     </>
   );
 };
