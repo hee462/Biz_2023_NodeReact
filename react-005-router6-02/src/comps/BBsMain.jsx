@@ -31,17 +31,17 @@ const BBsMain = () => {
   // 화면이 최초 랜더링된 후(Mount 된 후)에 한번만 실행하라
   // useEffect(()=>{},[])
   useEffect(() => {
-    const getForage = async () => {
-      setBbsList(await loacalforage.getItem("BBS"));
-    };
-    getForage();
-  }, []);
-  useEffect(() => {
     const setForage = async () => {
       await localforage.setItem("BBS", bbsList);
     };
     setForage();
   }, [bbsList]);
+  useEffect(() => {
+    const getForage = async () => {
+      setBbsList(await loacalforage.getItem("BBS"));
+    };
+    getForage();
+  }, []);
   const bbsUpdate = () => {
     const newBbsList = bbsList.map((bbs) => {
       if (bbs.id === bbsDto.id) {

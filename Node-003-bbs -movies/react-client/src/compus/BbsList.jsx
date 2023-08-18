@@ -1,13 +1,7 @@
 import { useBbsContext } from "../provider/BBsProvider";
 import css from "../css/BBsList.module.css";
 
-const sampleData = [
-  { b_seq: 0, b_nickname: "홍길동", b_title: "활빈당" },
-  { b_seq: 1, b_nickname: "이몽룡", b_title: "장원급제" },
-  { b_seq: 2, b_nickname: "성춘향", b_title: "남원" },
-  { b_seq: 3, b_nickname: "변학도", b_title: "사또" },
-  { b_seq: 4, b_nickname: "향단이", b_title: "몸종" },
-];
+const onClickDetail = () => {};
 const BbsList = () => {
   const { bbsList, setBbsList } = useBbsContext("");
   const bbsItems = bbsList.map((bbs) => {

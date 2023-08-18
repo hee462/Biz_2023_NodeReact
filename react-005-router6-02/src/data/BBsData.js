@@ -7,4 +7,4 @@ export const BBsDto = {
   bSubject: "",
   bContent: "",
 };
-export const BBsList = [BBsDto, BBsDto, BBsDto];
+export const BBsList = [BBsDto];

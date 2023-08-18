@@ -1,0 +1,31 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+section {
+  border: 1px solid black;
+  width: 1000px;
+  height: 800px;
+  margin: 15px auto;
+  display: flex;
+}
+/* div.input_div {
+  margin-right: 500px;
+} */
+input {
+  width: 200px;
+  height: 50px;
+  margin: 20px 20px;
+  border-radius: 10xp;
+  margin-right: 20px;
+  border-radius: 10px;
+  text-align: center;
+}
+input.input_subject {
+  width: 500px;
+}
+input.input_content {
+  height: 500px;
+  width: 500px;
+}
