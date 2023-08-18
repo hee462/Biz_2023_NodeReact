@@ -26,3 +26,5 @@
 
 - react 는 여러 css를 적용하여 프로젝트를 구현할수 있다.`*.module.css`를 사용하면
   private css를 구현하여 다른 css 와 충돌없는 캡슐화된 Componet를 구현할 수 있다.
+- react에서 `*.module.css`와 더불어 많이 사용하는 또 다른 style 지정하기 도구
+- 설치 : `npm install styled-components`

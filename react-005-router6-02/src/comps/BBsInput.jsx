@@ -1,21 +1,47 @@
-import { Form, Inputdiv } from "../styled/BBsStyled";
+import { Inputdiv } from "../styled/BBsStyled";
+import { Button } from "../styled/MyButton";
 
-const BBsInput = () => {
+const BBsInput = ({ bbsDto, setBbsDto, bbsInput }) => {
+  const inpuOnChange = (e) => {
+    const { name, value } = e.target;
+    setBbsDto({ ...bbsDto, [name]: value });
+  };
+  const btnOnClickHandler = () => {
+    bbsInput();
+  };
   return (
-    <Form>
+    <>
       <Inputdiv>
         <label htmlFor="">작성자</label>
-        <input type="text" />
+        <input
+          type="text"
+          value={bbsDto.bWriter}
+          name="bWriter"
+          onChange={inpuOnChange}
+        />
       </Inputdiv>
       <Inputdiv>
         <label htmlFor="">제목</label>
-        <input type="text" />
+        <input
+          type="text"
+          value={bbsDto.bSubject}
+          name="bSubject"
+          onChange={inpuOnChange}
+        />
       </Inputdiv>
       <Inputdiv>
         <label htmlFor="">내용</label>
-        <textarea rows={10} />
+        <textarea
+          rows={10}
+          value={bbsDto.bContent}
+          name="bContent"
+          onChange={inpuOnChange}
+        />
       </Inputdiv>
-    </Form>
+      <Button type="button" onClick={btnOnClickHandler}>
+        저장
+      </Button>
+    </>
   );
 };
 export default BBsInput;
