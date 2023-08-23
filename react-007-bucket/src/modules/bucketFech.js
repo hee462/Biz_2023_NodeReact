@@ -25,13 +25,12 @@ export const getBucketList = async () => {
   const bucketList = await localforage.getItem(LOCAL_DB);
   //DB 에서 get 한 데이터가 없으면 임시 데이터를 생성하고
   //db에 insert 한 후 그 데이터를 return 하기
-  if (!bucketList) {
-    const bucketDto = newBucketDto();
-    // indexDB에 추가하기
-    await setBuckList([bucketDto]);
-
-    return [bucketDto];
-  }
+  // if (!bucketList) {
+  //   const bucketDto = newBucketDto();
+  //   // indexDB에 추가하기
+  //   await setBuckList([bucketDto]);
+  //   return [bucketDto];
+  // }
   return bucketList;
 };
 // id값을 매개변수로 받아서 리스트 중 id 값에 해당하는 한개의 item을 return
@@ -45,18 +44,38 @@ export const getBucket = async (id) => {
   return bucket ?? null;
 };
 
+export const saveBucket = async (bucket) => {
+  const bucketList = await getBucketList();
+  const newBucketList = bucketList.map((item) => {
+    if (item.id === bucket.id) {
+      return bucket;
+    } else {
+      return item;
+    }
+  });
+  await setBuckList(newBucketList);
+};
+
 export const newBucket = async () => {
   const bucketDto = newBucketDto();
-  const bucketList = await getBucketList();
+  // DB에서 데이터 가져오는데 없으면 빈 배열로 초기화
+  const bucketList = (await getBucketList()) || [];
   /*
   JS 에서 기존 배열에 새로운 값을 추가하기
   배열.push(item): 배열의 끝에 새로운 item 추가하기 -> 새로등록한것을 마지막으로
   배열.unShift(item):배열의 맨 처음에 추가하기 -> 새로등록한것을 처음으로
   
   */
-  bucketList.unshift(bucketDto);
+  bucketList?.unshift(bucketDto);
   await setBuckList(bucketList);
   return bucketDto;
+};
+export const deleteBucket = async (id) => {
+  const bucketList = await getBucketList();
+  const resultList = bucketList.filter((item) => {
+    return item.id !== id;
+  });
+  await setBuckList(resultList);
 };
 // browser의 indexedDB에 BUCKETLIST 이름으로 데이터 저장
 export const setBuckList = async (bucketList) => {

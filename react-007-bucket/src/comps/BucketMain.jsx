@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import BucketSearch from "./BucketSearch";
-import { useLoaderData, NavLink, Outlet } from "react-router-dom";
-import { getBucketList, newBucke, newBucket } from "../modules/bucketFech";
+import { redirect, Outlet } from "react-router-dom";
+import { getBucketList, newBucket } from "../modules/bucketFech";
+import BuketList from "./BucketList";
 
 const ASideBar = styled.aside`
   width: 22rem;
@@ -30,7 +31,7 @@ const UL = styled.ul`
     margin: 5px auto;
     text-align: left;
 
-    $:hover {
+    &:hover {
       background-color: #aaa;
       cursor: pointer;
     }
@@ -53,22 +54,22 @@ export const mainLoader = async () => {
 };
 export const mainAction = async () => {
   const bucket = await newBucket();
-  return "";
+  return redirect(`/content/${bucket.id}/edit`);
 };
 const BuketMain = () => {
-  const { buckeList } = useLoaderData();
-  const bucketItemListView = buckeList.map((item) => {
-    return (
-      <li>
-        <NavLink to={`content/${item.id}`}>{item.bucket}</NavLink>
-      </li>
-    );
-  });
+  // const { buckeList } = useLoaderData();
+  // const bucketItemListView = buckeList.map((item) => {
+  //   return (
+  //     <li>
+  //       <NavLink to={`content/${item.id}`}>{item.bucket}</NavLink>
+  //     </li>
+  //   );
+  // });
   return (
     <>
       <ASideBar>
         <BucketSearch />
-        <UL>{bucketItemListView}</UL>
+        <BuketList />
       </ASideBar>
       <div>
         <h1>
