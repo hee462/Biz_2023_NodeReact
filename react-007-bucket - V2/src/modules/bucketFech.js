@@ -1,27 +1,19 @@
-import uuid from "react-uuid";
-import moment from "moment";
 import localforage from "localforage";
-// 코딩에서 매직리터럴(매직스트링/매직넘버) 금지!!!!!!
-// 문자열로 생성된 값을 참조하여 어떤 문제를 해결하는 것
-// if(name==="홍길동")
-// nickname ='홍길동'
-// const SAMPLE_NAME = '홍길도'
-// nickname =SAMLE_NAME
-// if(name===SAMPLE_NAME)
+import { newBucketDto } from "./bucketDto";
 
 const LOCAL_DB = "BUCKT_LIST";
-export const newBucketDto = () => {
-  const bucketDto = {
-    id: uuid(),
-    img_src: "",
-    sdate: moment().format("YYYY[-]MM[-]DD"),
-    stime: moment().format("HH:mm:ss"),
-    bucket: "새로운 Bucket",
-    complete: false,
-    favorite: false,
-  };
-  return bucketDto;
-};
+// export const newBucketDto = () => {
+//   const bucketDto = {
+//     id: uuid(),
+//     img_src: "",
+//     sdate: moment().format("YYYY[-]MM[-]DD"),
+//     stime: moment().format("HH:mm:ss"),
+//     bucket: "새로운 Bucket",
+//     complete: false,
+//     favorite: false,
+//   };
+//   return bucketDto;
+// };
 //DB 에서 get 한 데이터가 없으면 임시 데이터를 생성하고
 //db에 insert 한 후 그 데이터를 return 하기
 // if (!bucketList) {

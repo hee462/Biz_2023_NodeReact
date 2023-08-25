@@ -1,7 +1,7 @@
 import { Form, useLoaderData, redirect, useSubmit } from "react-router-dom";
 import css from "./BucketUpdate.module.scss";
 import Button from "../shareCompus/Button";
-import { getBucket, saveBucket } from "../modules/bucketFech";
+import { getBucket, saveBucket } from "../modules/firebaseDBProvider";
 import dImage from "../assets/그림1.png";
 import { useRef } from "react";
 
@@ -25,7 +25,7 @@ export const updateAction = async ({ request, params }) => {
   // 데이터만 JSON type으로 추출해준다 누가-> Object.fromEntries
   const inputBucket = Object.fromEntries(formData);
   // DB로 부터 SELECT 한 bucket에 input 으로 입력한 데이터를
-  // Update 하여 새로운 bucket 생성
+  // Update 하여 새로운 bucket 생성F
   const newBucket = { ...result, ...inputBucket };
   await saveBucket(newBucket);
   return redirect(`/content/${id}`);
